@@ -30,7 +30,7 @@ public class Manutencao {
     @NotBlank
     @Size(min = 3, max = 100)
     @Column(nullable = false, length = 100)
-    private String solicitante; 
+    private String cliente; 
 
     @NotBlank
     @Size(min = 5, max = 255)
@@ -45,7 +45,7 @@ public class Manutencao {
     @NotNull
     @DateTimeFormat(iso = ISO.DATE_TIME)
     @Column(nullable = false, updatable = false)
-    private LocalDateTime dataHoraSolicitacao = LocalDateTime.now();
+    private LocalDateTime dataHoraPedido = LocalDateTime.now();
 
     @DateTimeFormat(iso = ISO.DATE_TIME)
     @Column(nullable = true)

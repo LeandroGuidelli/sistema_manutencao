@@ -4,57 +4,50 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Sistema de Manutenção</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="/css/list.css">
 </head>
 <body>
-  <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" th:href="@{/manutencoes}">Sistema de Manutenção</a>
-    </div>
+  <nav>
+    <a th:href="@{/home}">Sistema de Manutenção</a>
   </nav>
 
-  <main class="container mt-4">
-    <h1>Solicitações de Manutenção</h1>
+  <main>
+    <h1>Pedidos de Manutenção</h1>
 
-    <table class="table table-striped" th:unless="${#lists.isEmpty(manutencoes)}">
+    <table th:unless="${#lists.isEmpty(home)}">
       <thead>
         <tr>
           <th>ID</th>
-          <th>Solicitante</th>
+          <th>Cliente</th>
           <th>Item</th>
           <th>Descrição</th>
-          <th>Data Solicitação</th>
+          <th>Data Pedido</th>
           <th>Data Conclusão</th>
           <th>Ações</th>
         </tr>
       </thead>
       <tbody>
-        <tr th:each="m : ${manutencoes}">
+        <tr th:each="m : ${home}">
           <td th:text="${m.id}">---</td>
-          <td th:text="${m.solicitante}">---</td>
+          <td th:text="${m.cliente}">---</td>
           <td th:text="${m.item}">---</td>
           <td th:text="${m.descricaoProblema}">---</td>
-          <td th:text="${#temporals.format(m.dataHoraSolicitacao, 'dd/MM/yyyy HH:mm')}">---</td>
+          <td th:text="${#temporals.format(m.dataHoraPedido, 'dd/MM/yyyy HH:mm')}">---</td>
           <td th:text="${m.dataHoraConclusao != null ? #temporals.format(m.dataHoraConclusao, 'dd/MM/yyyy HH:mm') : '-'}">---</td>
-
-          <td>
-            <form class="d-inline" th:action="@{/manutencoes/finish/{id}(id=${m.id})}" method="post">
-              <button type="submit" class="btn btn-sm btn-primary"
-                th:classappend="${m.dataHoraConclusao}?' disabled':''">Finalizar</button>
+          <td class="acoes">
+            <form class="d-inline" th:action="@{/home/finish/{id}(id=${m.id})}" method="post">
+              <button type="submit" class="btn btn-primary" th:classappend="${m.dataHoraConclusao}?' disabled':''">Finalizar</button>
             </form>
-
-            <a th:href="@{/manutencoes/edit/{id}(id=${m.id})}" class="btn btn-sm btn-secondary"
-               th:classappend="${m.dataHoraConclusao}?' disabled':''">Editar</a>
-
-            <a th:href="@{/manutencoes/delete/{id}(id=${m.id})}" class="btn btn-sm btn-danger">Excluir</a>
+            <a th:href="@{/home/edit/{id}(id=${m.id})}" class="btn btn-secondary" th:classappend="${m.dataHoraConclusao}?' disabled':''">Editar</a>
+            <a th:href="@{/home/delete/{id}(id=${m.id})}" class="btn btn-danger">Excluir</a>
           </td>
         </tr>
       </tbody>
     </table>
 
-    <p th:if="${#lists.isEmpty(manutencoes)}">Nenhuma solicitação cadastrada.</p>
+    <p th:if="${#lists.isEmpty(home)}">Nenhum Pedido cadastrado.</p>
 
-    <a th:href="@{/manutencoes/create}" class="btn btn-primary">Nova Solicitação</a>
+    <a th:href="@{/home/create}" class="btn btn-primary">Novo Pedido</a>
   </main>
 </body>
 </html>

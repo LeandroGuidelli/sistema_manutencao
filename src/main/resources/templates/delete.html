@@ -3,24 +3,25 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Excluir Solicitação</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <title>Excluir Pedido</title>
+  <link rel="stylesheet" href="/css/delete.css">
 </head>
 <body>
-  <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" th:href="@{/manutencoes}">Sistema de Manutenção</a>
-    </div>
+  <nav>
+    <a th:href="@{/home}">Sistema de Manutenção</a>
   </nav>
 
-  <main class="container mt-4">
-    <h1>Excluir Solicitação</h1>
+  <main>
+    <h1>Excluir Pedido</h1>
 
-    <p>Tem certeza que deseja excluir a solicitação do item <strong th:text="${manutencao.item}"></strong> feita por <strong th:text="${manutencao.solicitante}"></strong>?</p>
+    <p>Tem certeza que deseja excluir o Pedido do item 
+      <strong th:text="${manutencao.item}"></strong> feita por 
+      <strong th:text="${manutencao.cliente}"></strong>?
+    </p>
 
-    <form method="post">
+    <form method="post" class="form-actions">
       <button type="submit" class="btn btn-danger">Excluir</button>
-      <a th:href="@{/manutencoes}" class="btn btn-secondary">Cancelar</a>
+      <a th:href="@{/home}" class="btn btn-secondary">Cancelar</a>
     </form>
   </main>
 </body>

@@ -17,18 +17,18 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.server.ResponseStatusException;
 
 @Controller
-@RequestMapping("/manutencoes")
+@RequestMapping("/home")
 public class ManutencaoController {
 
     @Autowired
     private ManutencaoRepository manutencaoRepository;
 
-    // Listar solicitações
+    // Listar pedidos
     @GetMapping
     public ModelAndView list() {
         return new ModelAndView(
             "list", 
-            Map.of("manutencoes", manutencaoRepository.findAll(Sort.by("dataHoraSolicitacao").descending()))
+            Map.of("home", manutencaoRepository.findAll(Sort.by("dataHoraPedido").descending()))
         );
     }
 
@@ -43,9 +43,9 @@ public class ManutencaoController {
         if (result.hasErrors())
             return "form";
 
-        manutencao.setDataHoraSolicitacao(LocalDateTime.now());
+        manutencao.setDataHoraPedido(LocalDateTime.now());
         manutencaoRepository.save(manutencao);
-        return "redirect:/manutencoes";
+        return "redirect:/home";
     }
 
     // Editar 
@@ -63,7 +63,7 @@ public class ManutencaoController {
         if (result.hasErrors())
             return "form";
         manutencaoRepository.save(manutencao);
-        return "redirect:/manutencoes";
+        return "redirect:/home";
     }
 
     // Deletar 
@@ -79,7 +79,7 @@ public class ManutencaoController {
     @PostMapping("/delete/{id}")
     public String delete(Manutencao manutencao) {
         manutencaoRepository.delete(manutencao);
-        return "redirect:/manutencoes";
+        return "redirect:/home";
     }
 
     // Finalizar 
@@ -90,7 +90,7 @@ public class ManutencaoController {
             var manutencao = optionalManutencao.get();
             manutencao.setDataHoraConclusao(LocalDateTime.now());
             manutencaoRepository.save(manutencao);
-            return "redirect:/manutencoes";
+            return "redirect:/home";
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
